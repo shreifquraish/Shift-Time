@@ -15,7 +15,7 @@ class RecordModel {
   final String type; // 'shift' أو 'withdrawal'
   final DateTime date;
   final String dateStr;
-  final double amount; // هنا هنشيل القيمة المحسوبة وقت الإضافة
+  final double amount; 
   final List<Period>? periods;
   final double? totalDurationHrs;
 
@@ -29,10 +29,12 @@ class RecordModel {
     this.totalDurationHrs,
   });
 
-  // دالة تحويل الساعات الكسرية إلى شكل (س : د)
+  // الدالة السحرية لتحويل الكسر (مثال: 3.41) إلى صيغة مفهومة (3 س : 25 د)
   static String formatHoursToCustom(double duration) {
+    if (duration <= 0) return "0 س : 0 د";
     int hours = duration.toInt();
     int minutes = ((duration - hours) * 60).round();
+    
     if (minutes == 60) {
       hours += 1;
       minutes = 0;
